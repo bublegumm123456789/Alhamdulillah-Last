@@ -259,14 +259,14 @@ if page == "Logout":
 # ------------------------------------------------
 if page == "Beranda":
     df = get_df()
-    st.title("📊 Dashboard Kepegawaian ASN")
+    st.title("📊 Dashboard Kepegawaian PNS")
 
     total_asn = df.shape[0]
     total_opd = df['OPD'].nunique()
     gender_count = df['JK'].value_counts()
 
     col1, col2, col3, col4 = st.columns(4)
-    col1.markdown("#### 👥 Total ASN")
+    col1.markdown("#### 👥 Total PNS")
     col1.success(f"**{total_asn:,} Pegawai**")
 
     col2.markdown("#### 🏢 Total OPD")
@@ -283,7 +283,7 @@ if page == "Beranda":
     usia_lbl  = ["<25","26‑30","31‑35","36‑40","41-45","46-50","51‑55","56‑60",">60"]
     df["KELOMPOK_USIA"] = pd.cut(df["USIA"], usia_bins, labels=usia_lbl)
 
-    fig_usia = px.pie(df, names="KELOMPOK_USIA", title="Distribusi ASN berdasarkan Usia")
+    fig_usia = px.pie(df, names="KELOMPOK_USIA", title="Distribusi PNS berdasarkan Usia")
     st.plotly_chart(fig_usia, use_container_width=True)
 
     # === BAR CHART GENDER - PENDIDIKAN ===
@@ -302,8 +302,8 @@ if page == "Beranda":
                 height=500)
     st.plotly_chart(fig2, use_container_width=True)
 
-        # 📊 Visualisasi Jumlah ASN per OPD
-    st.markdown("### 🏢 Jumlah ASN per OPD")
+        # 📊 Visualisasi Jumlah PNS per OPD
+    st.markdown("### 🏢 Jumlah PNS per OPD")
 
     opd_count = df['OPD'].value_counts().reset_index()
     opd_count.columns = ['OPD', 'JUMLAH']
