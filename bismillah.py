@@ -483,7 +483,7 @@ elif page == "Visualisasi Clustering":
         # 3) Layout & gaya
         # ----------------------------------------
         ax.set_title(
-            "Visualisasi Klaster ASN Berdasarkan Sisa Masa Kerja dan Level Jabatan",
+            "Visualisasi Klaster PNS Berdasarkan Sisa Masa Kerja dan Level Jabatan",
             fontsize=14
         )
         ax.set_xlabel("Sisa Masa Kerja")
