@@ -141,9 +141,9 @@ def login():
         col = st.columns([1,2,1])[1]
         with col:
             st.markdown("#### 👤 Username")
-            u = st.text_input("u", key="u", label_visibility="hidden")
+            u = st.text_input("u", key="u", label_visibility="hidden", placeholder="Masukkan nama pengguna")
             st.markdown("#### 🔒 Password")
-            p = st.text_input("p", key="p", type="password", label_visibility="hidden")
+            p = st.text_input("p", key="p", type="password", label_visibility="hidden", placeholder="Masukkan kata sandi")
             if st.button("Login"):
                 if u=="admin" and p=="admin123":
                     st.session_state.logged = True
@@ -157,7 +157,7 @@ if "logged" not in st.session_state:
 if not st.session_state.logged:
     login()
     st.stop()
-
+    
 # # ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 #     FUNGSI CRUD UNTUK GOOGLE SHEETS  
 # ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
