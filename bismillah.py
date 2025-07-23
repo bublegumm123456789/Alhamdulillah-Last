@@ -561,7 +561,7 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
 
     # --- Slider: Filter Usia ASN muda
-    usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=25, max_value=45, value=35)
+    usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=45, value=35)
     df_muda = df[df["USIA"] < usia_batas]   
 
     # --- Rekap ASN muda per jabatan dan OPD
