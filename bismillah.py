@@ -555,7 +555,7 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     # --- Filter pegawai yang akan pensiun dalam rentang tahun tsb
     df_pensiun = df[df["Sisa Masa Kerja"] <= batas_pensiun]
     st.markdown(f"#### 👴 Daftar Pegawai Akan Pensiun ≤ {batas_pensiun} Tahun")
-    st.dataframe(df_pensiun[['ID PEGAWAI','NAMA', 'JABATAN', 'KOMPETENSI','OPD', 'USIA', 'Sisa Masa Kerja']])
+    st.dataframe(df_pensiun[['ID PEGAWAI', 'JABATAN', 'KOMPETENSI','OPD', 'USIA', 'Sisa Masa Kerja']])
 
     # --- Rekap jumlah pensiun berdasarkan jabatan dan OPD
     pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
