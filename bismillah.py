@@ -558,17 +558,17 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     st.dataframe(df_pensiun[['ID PEGAWAI','NAMA', 'JABATAN', 'KOMPETENSI','OPD', 'USIA', 'Sisa Masa Kerja']])
 
     # --- Rekap jumlah pensiun berdasarkan jabatan dan OPD
-    pensiun_grouped = df_pensiun.groupby(["ID PEGAWAI", "JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
+    pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
 
     # --- Slider: Filter Usia ASN muda
     usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=45, value=35)
     df_muda = df[df["USIA"] < usia_batas]   
 
     # --- Rekap ASN muda per jabatan dan OPD
-    muda_grouped = df_muda.groupby(["ID PEGAWAI", "JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Muda")
+    muda_grouped = df_muda.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Muda")
 
     # --- Gabungkan & analisis ketersediaan pengganti
-    df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["ID PEGAWAI", "JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"], how="left")
+    df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"], how="left")
     df_gap["Jumlah_Muda"] = df_gap["Jumlah_Muda"].fillna(0).astype(int)
     df_gap["Tersedia_Pengganti"] = df_gap["Jumlah_Muda"].apply(lambda x: "Ya" if x > 0 else "Tidak")
 
