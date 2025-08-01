@@ -512,7 +512,6 @@ elif page == "Visualisasi Clustering":
         st.pyplot(fig, use_container_width=True)
 
         # Tampilkan keterangan level jabatan setelah grafik
-        st.markdown("> **Keterangan:** Sumbu X menunjukkan Sisa Masa Kerja dalam satuan **Tahun**.")
         st.markdown("---")
         st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
         st.markdown("""
