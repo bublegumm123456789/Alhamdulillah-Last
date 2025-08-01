@@ -449,7 +449,7 @@ elif page == "Visualisasi Clustering":
     elif not {"Sisa Masa Kerja", "Level Jabatan", "Kategori Cluster"} <= set(df.columns):
         st.warning("Kolom belum lengkap.")
     else:
-
+        st.subheader("📊 Visualisasi Klaster PNS")
         # Buat scatter plot
         fig, ax = plt.subplots(figsize=(18, 9))
 
@@ -512,7 +512,6 @@ elif page == "Visualisasi Clustering":
         st.pyplot(fig, use_container_width=True)
 
         # Tampilkan keterangan level jabatan setelah grafik
-        st.subheader("📊 Visualisasi Klaster PNS")
         st.markdown("> **Keterangan:** Sumbu X menunjukkan *Sisa Masa Kerja* dalam satuan **tahun**.")
         st.markdown("---")
         st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
