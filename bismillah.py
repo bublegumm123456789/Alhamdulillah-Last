@@ -439,99 +439,77 @@ elif page == "Data Pegawai":
 
 # 3️⃣  Visualisasi Clustering
 # ------------------------------------------------
+# 3️⃣  Visualisasi Clustering
+# ------------------------------------------------
 elif page == "Visualisasi Clustering":
-    df = apply_kmeans(get_df())
-    
+    # Kembalikan DataFrame hasil klaster
+    df = apply_kmeans(get_df())     # pastikan hasilnya ada 'Sisa Masa Kerja',
+                                    # 'Level Jabatan', dan 'Kategori Cluster'
+    # Validasi data
     if df.empty:
         st.warning("Belum ada data.")
     elif not {"Sisa Masa Kerja", "Level Jabatan", "Kategori Cluster"} <= set(df.columns):
         st.warning("Kolom belum lengkap.")
     else:
-        st.subheader("📊 Visualisasi Klaster PNS")
-        fig, ax = plt.subplots(figsize=(18, 9))
-
-        # Scatter plot
+        # ----------------------------------------
+        # 1) Plot utama (seaborn scatter)
+        # ----------------------------------------
+        fig, ax = plt.subplots(figsize=(10, 6))
         sns.scatterplot(
             data=df,
             x="Sisa Masa Kerja",
             y="Level Jabatan",
-            hue="Kategori Cluster",
+            hue="Kategori Cluster",       # ganti jadi 'Cluster' kalau itu nama kolommu
             palette="Set2",
-            s=100,
+            s=80,
             ax=ax
         )
-
-        # Centroid (pakai mean per cluster)
+        # 2) Hitung & plot centroid
+        # ----------------------------------------
+        # Cara cepat: rata‑rata tiap klaster
         centroids = (
             df.groupby("Kategori Cluster")[["Sisa Masa Kerja", "Level Jabatan"]]
             .mean()
             .reset_index(drop=True)
             .values
         )
+
         ax.scatter(
-            centroids[:, 0],
-            centroids[:, 1],
+            centroids[:, 0],                  # x‑centroid
+            centroids[:, 1],                  # y‑centroid
             c="black",
-            s=250,
+            s=200,
             marker="X",
             label="Centroid"
         )
-
-        # Mapping level jabatan
-        jabatan_labels = {
-            4.0: 'Jabatan Fungsional Keahlian Ahli Utama',
-            3.0: 'Jabatan Fungsional Keahlian Ahli Madya',
-            2.0: 'Jabatan Fungsional Keahlian Ahli Muda',
-            1.0: 'Jabatan Fungsional Keahlian Ahli Pertama',
-            0.9: 'Jabatan Fungsional Keterampilan Penyelia',
-            0.7: 'Jabatan Fungsional Keterampilan Mahir',
-            0.5: 'Jabatan Fungsional Keterampilan Terampil',
-            0.3: 'Jabatan Fungsional Keterampilan Pemula'
-        }
-
-        ax.set_yticks(list(jabatan_labels.keys()))
-        ax.set_yticklabels([str(k) for k in jabatan_labels.keys()], fontsize=12)
-
-        # Tambahkan label jabatan lengkap di kanan grafik
-        x_right = df["Sisa Masa Kerja"].max() + 1
-        for level, label in jabatan_labels.items():
-            ax.text(
-                x_right,
-                level,
-                f"{level} = {label}",
-                va="center",
-                ha="left",
-                fontsize=12,
-                color="black"
-            )
-
-        # Custom legend
-        legend_elements = [
-            Patch(facecolor=sns.color_palette("Set2")[0], label="0 = Segera Pensiun"),
-            Patch(facecolor=sns.color_palette("Set2")[1], label="1 = Pensiun Menengah"),
-            Patch(facecolor=sns.color_palette("Set2")[2], label="2 = Masih Lama Pensiun"),
-            Line2D([0], [0], marker='X', color='w', label='Centroid', markerfacecolor='black', markersize=12)
-        ]
-        ax.legend(
-            handles=legend_elements,
-            title="Keterangan Cluster",
-            loc="center left",
-            bbox_to_anchor=(1.2, 0.4),
-            frameon=True,
-            fontsize=12,
-            title_fontsize=13
+        # 3) Layout & gaya
+        # ----------------------------------------
+        ax.set_title(
+            "Visualisasi Klaster PNS Berdasarkan Sisa Masa Kerja dan Level Jabatan",
+            fontsize=14
         )
-
-        ax.set_title("Visualisasi Klaster PNS Berdasarkan Sisa Masa Kerja dan Level Jabatan", fontsize=16)
-        ax.set_xlabel("Sisa Masa Kerja (Tahun)", fontsize=13)
-        ax.set_ylabel("Level Jabatan", fontsize=13)
-
-        ax.grid(True, linestyle='--', alpha=0.5)
+        ax.set_xlabel("Sisa Masa Kerja")
+        ax.set_ylabel("Level Jabatan")
+        ax.grid(True)
+        ax.legend()
         plt.tight_layout()
-        plt.xlim(right=x_right + 8)
-
         st.pyplot(fig, use_container_width=True)
 
+        # 4) Penjelasan Level Jabatan
+        st.markdown("---")
+        st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
+        st.markdown("""
+        Berikut ini adalah konversi nilai numerik untuk Level Jabatan berdasarkan jabatan fungsional:
+        
+        - **4.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI UTAMA  
+        - **3.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MADYA  
+        - **2.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MUDA   
+        - **1.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI PERTAMA   
+        - **0.9** : JABATAN FUNGSIONAL KETERAMPILAN PENYELIA  
+        - **0.7** : JABATAN FUNGSIONAL KETERAMPILAN MAHIR   
+        - **0.5** : JABATAN FUNGSIONAL KETERAMPILAN TERAMPIL 
+        - **0.3** : JABATAN FUNGSIONAL KETERAMPILAN PEMULA  
+        """)  
 
 # ────────────────────────────────────────────────
 # ==========================================================================
