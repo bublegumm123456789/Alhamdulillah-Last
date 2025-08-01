@@ -499,14 +499,14 @@ elif page == "Visualisasi Clustering":
         st.markdown("""
         Berikut ini adalah konversi nilai numerik untuk `Level Jabatan` berdasarkan jabatan fungsional:
         
-        - **4.0** : AHLI UTAMA  
-        - **3.0** : AHLI MADYA  
-        - **2.0** : AHLI MUDA   
-        - **1.0** : AHLI PERTAMA   
-        - **0.9** : PENYELIA  
-        - **0.7** : MAHIR   
-        - **0.5** : TERAMPIL 
-        - **0.3** : PEMULA  
+        - **4.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI UTAMA  
+        - **3.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MADYA  
+        - **2.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MUDA   
+        - **1.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI PERTAMA   
+        - **0.9** : JABATAN FUNGSIONAL KETERAMPILAN PENYELIA  
+        - **0.7** : JABATAN FUNGSIONAL KETERAMPILAN MAHIR   
+        - **0.5** : JABATAN FUNGSIONAL KETERAMPILAN TERAMPIL 
+        - **0.3** : JABATAN FUNGSIONAL KETERAMPILAN PEMULA  
         """)
 
 
