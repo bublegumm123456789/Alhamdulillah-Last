@@ -16,6 +16,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
 
 st.set_page_config(page_title="Login Sistem ASN", layout="wide")
 
