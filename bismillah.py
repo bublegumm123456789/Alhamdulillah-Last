@@ -441,8 +441,6 @@ elif page == "Data Pegawai":
 
 # 3️⃣  Visualisasi Clustering
 # ------------------------------------------------
-# 3️⃣  Visualisasi Clustering
-# ------------------------------------------------
 elif page == "Visualisasi Clustering":
     df = apply_kmeans(get_df())
 
@@ -451,8 +449,6 @@ elif page == "Visualisasi Clustering":
     elif not {"Sisa Masa Kerja", "Level Jabatan", "Kategori Cluster"} <= set(df.columns):
         st.warning("Kolom belum lengkap.")
     else:
-        st.subheader("📊 Visualisasi Klaster PNS")
-        st.markdown("> **Keterangan:** Sumbu X menunjukkan *Sisa Masa Kerja* dalam satuan **tahun**.")
 
         # Buat scatter plot
         fig, ax = plt.subplots(figsize=(18, 9))
@@ -500,7 +496,7 @@ elif page == "Visualisasi Clustering":
             handles=legend_elements,
             title="Keterangan Cluster",
             loc="center left",
-            bbox_to_anchor=(1.2, 0.4),
+            bbox_to_anchor=(1.0, 0.4),
             frameon=True,
             fontsize=12,
             title_fontsize=13
@@ -516,6 +512,8 @@ elif page == "Visualisasi Clustering":
         st.pyplot(fig, use_container_width=True)
 
         # Tampilkan keterangan level jabatan setelah grafik
+        st.subheader("📊 Visualisasi Klaster PNS")
+        st.markdown("> **Keterangan:** Sumbu X menunjukkan *Sisa Masa Kerja* dalam satuan **tahun**.")
         st.markdown("---")
         st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
         st.markdown("""
