@@ -441,6 +441,8 @@ elif page == "Data Pegawai":
 
 # 3️⃣  Visualisasi Clustering
 # ------------------------------------------------
+# 3️⃣  Visualisasi Clustering
+# ------------------------------------------------
 elif page == "Visualisasi Clustering":
     df = apply_kmeans(get_df())
 
@@ -451,7 +453,8 @@ elif page == "Visualisasi Clustering":
     else:
         st.subheader("📊 Visualisasi Klaster PNS")
         st.markdown("> **Keterangan:** Sumbu X menunjukkan *Sisa Masa Kerja* dalam satuan **tahun**.")
-        
+
+        # Buat scatter plot
         fig, ax = plt.subplots(figsize=(18, 9))
 
         sns.scatterplot(
@@ -481,32 +484,9 @@ elif page == "Visualisasi Clustering":
             label="Centroid"
         )
 
-        # Tambahkan label jabatan di kanan
-        jabatan_labels = {
-            4.0: 'Jabatan Fungsional Keahlian Ahli Utama',
-            3.0: 'Jabatan Fungsional Keahlian Ahli Madya',
-            2.0: 'Jabatan Fungsional Keahlian Ahli Muda',
-            1.0: 'Jabatan Fungsional Keahlian Ahli Pertama',
-            0.9: 'Jabatan Fungsional Keterampilan Penyelia',
-            0.7: 'Jabatan Fungsional Keterampilan Mahir',
-            0.5: 'Jabatan Fungsional Keterampilan Terampil',
-            0.3: 'Jabatan Fungsional Keterampilan Pemula'
-        }
-
-        ax.set_yticks(list(jabatan_labels.keys()))
-        ax.set_yticklabels([str(k) for k in jabatan_labels.keys()], fontsize=12)
-
-        x_right = df["Sisa Masa Kerja"].max() + 1
-        for level, label in jabatan_labels.items():
-            ax.text(
-                x_right,
-                level,
-                f"{level} = {label}",
-                va="center",
-                ha="left",
-                fontsize=12,
-                color="black"
-            )
+        # Hapus teks label jabatan di sisi kanan
+        ax.set_yticks([4.0, 3.0, 2.0, 1.0, 0.9, 0.7, 0.5, 0.3])
+        ax.set_yticklabels([str(k) for k in [4.0, 3.0, 2.0, 1.0, 0.9, 0.7, 0.5, 0.3]], fontsize=12)
 
         # Legend custom
         legend_elements = [
@@ -532,10 +512,10 @@ elif page == "Visualisasi Clustering":
         ax.grid(True, linestyle='--', alpha=0.5)
 
         plt.tight_layout()
-        plt.xlim(right=x_right + 8)
+        plt.xlim(right=df["Sisa Masa Kerja"].max() + 8)
         st.pyplot(fig, use_container_width=True)
 
-        # Keterangan tambahan
+        # Tampilkan keterangan level jabatan setelah grafik
         st.markdown("---")
         st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
         st.markdown("""
