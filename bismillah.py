@@ -562,7 +562,7 @@ elif page == "Hasil Cluster":          # ← pakai page
         
         
 # ------------------ PROYEKSI PENSIUN ------------------
-elif page == "Proyeksi Pensiun":
+elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     df = apply_kmeans(get_df())
     st.subheader("📌 Proyeksi Pensiun")
     
