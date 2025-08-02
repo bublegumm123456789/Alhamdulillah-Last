@@ -564,7 +564,7 @@ elif page == "Hasil Cluster":          # ← pakai page
 # ------------------ PROYEKSI PENSIUN ------------------
 elif page == "Proyeksi Pensiun":
     df = apply_kmeans(get_df())
-    st.subheader("📌 Proyeksi Pensiun & Ketersediaan Pengganti")
+    st.subheader("📌 Proyeksi Pensiun")
     
     # --- Slider: Tahun Pensiun ---
     batas_pensiun = st.slider("🎯 Batas Maksimum Sisa Masa Kerja (tahun)", min_value=1, max_value=50, value=5)
@@ -684,4 +684,5 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
