@@ -657,19 +657,22 @@ elif page == "Hasil Visualisasi Magang":
         plt.tight_layout()
         st.pyplot(plt)
 
-        
-
     with st.expander("📊 Heatmap Rata-rata Usia berdasarkan Rentang Usia dan OPD"):
         result_usia_opd = df.groupby(['OPD', 'Rentang Usia'], as_index=False)['USIA'].mean()
         result_usia_opd.rename(columns={'USIA': 'Rata_rata_Usia'}, inplace=True)
 
         plt.figure(figsize=(18, 14))
         heatmap_data_usia_opd = result_usia_opd.pivot_table(index='OPD', columns='Rentang Usia', values='Rata_rata_Usia')
-        sns.heatmap(heatmap_data_usia_opd, annot=True, fmt=".1f", cmap="Oranges", linewidths=.5)
+        ax = sns.heatmap(heatmap_data_usia_opd, annot=True, fmt=".1f", cmap="Oranges", linewidths=.5)
 
         plt.title('Rata-rata Usia Pegawai Berdasarkan Rentang Usia dan OPD', fontsize=14)
         plt.xlabel('Rentang Usia')
         plt.ylabel('OPD')
+        
+        # Perbesar font label sumbu X (Rentang Usia)
+        ax.set_xticklabels(ax.get_xticklabels(), fontsize=11, rotation=0)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=10)
+
         plt.tight_layout()
         st.pyplot(plt)
 
@@ -692,6 +695,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
