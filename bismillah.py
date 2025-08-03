@@ -650,21 +650,21 @@ elif page == "Hasil Visualisasi Magang":
         plt.ylabel('Pendidikan Akhir')
         plt.tight_layout()
         st.pyplot(plt)
-        # Tambahkan keterangan setelah grafik
-        st.markdown("---")
-        st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
-        st.markdown("""
-        Berikut ini adalah konversi nilai numerik untuk `Level Jabatan` berdasarkan jabatan fungsional:
+    # Tambahkan keterangan setelah grafik
+    st.markdown("---")
+    st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
+    st.markdown("""
+    Berikut ini adalah konversi nilai numerik untuk `Level Jabatan` berdasarkan jabatan fungsional:
         
-        - **4.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI UTAMA  
-        - **3.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MADYA  
-        - **2.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MUDA  
-        - **1.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI PERTAMA  
-        - **0.9** : JABATAN FUNGSIONAL KETERAMPILAN PENYELIA  
-        - **0.7** : JABATAN FUNGSIONAL KETERAMPILAN MAHIR  
-        - **0.5** : JABATAN FUNGSIONAL KETERAMPILAN TERAMPIL  
-        - **0.3** : JABATAN FUNGSIONAL KETERAMPILAN PEMULA  
-        """)
+    - **4.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI UTAMA  
+    - **3.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MADYA  
+    - **2.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MUDA  
+    - **1.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI PERTAMA  
+    - **0.9** : JABATAN FUNGSIONAL KETERAMPILAN PENYELIA  
+    - **0.7** : JABATAN FUNGSIONAL KETERAMPILAN MAHIR  
+    - **0.5** : JABATAN FUNGSIONAL KETERAMPILAN TERAMPIL  
+    - **0.3** : JABATAN FUNGSIONAL KETERAMPILAN PEMULA  
+    """)
 
     with st.expander("📊 Heatmap Rata-rata Usia berdasarkan Rentang Usia dan OPD"):
         result_usia_opd = df.groupby(['OPD', 'Rentang Usia'], as_index=False)['USIA'].mean()
@@ -699,6 +699,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
