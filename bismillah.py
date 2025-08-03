@@ -641,30 +641,22 @@ elif page == "Hasil Visualisasi Magang":
         result = df.groupby(['PENDIDIKAN AKHIR', 'Level Jabatan'], as_index=False)['USIA'].mean()
         result.rename(columns={'USIA': 'Rata_rata_Usia'}, inplace=True)
 
-        plt.figure(figsize=(14, 7))
+       plt.figure(figsize=(14, 7))
         heatmap_data = result.pivot_table(index='PENDIDIKAN AKHIR', columns='Level Jabatan', values='Rata_rata_Usia')
         sns.heatmap(heatmap_data, annot=True, fmt=".1f", cmap="YlGnBu", linewidths=.5, cbar_kws={"label": "Rata-rata Usia"})
 
-        plt.title('Rata-rata Usia Berdasarkan Pendidikan Akhir dan Level Jabatan', fontsize=14)
-        plt.xlabel('Level Jabatan (Skor Numerik)')
-        plt.ylabel('Pendidikan Akhir')
-        plt.tight_layout()
-        st.pyplot(plt)
-    # Tambahkan keterangan setelah grafik
-    st.markdown("---")
-    st.subheader("📘 Keterangan Nilai 'Level Jabatan'")
-    st.markdown("""
-    Berikut ini adalah konversi nilai numerik untuk `Level Jabatan` berdasarkan jabatan fungsional:
-        
-    - **4.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI UTAMA  
-    - **3.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MADYA  
-    - **2.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI MUDA  
-    - **1.0** : JABATAN FUNGSIONAL KEAHLIAN AHLI PERTAMA  
-    - **0.9** : JABATAN FUNGSIONAL KETERAMPILAN PENYELIA  
-    - **0.7** : JABATAN FUNGSIONAL KETERAMPILAN MAHIR  
-    - **0.5** : JABATAN FUNGSIONAL KETERAMPILAN TERAMPIL  
-    - **0.3** : JABATAN FUNGSIONAL KETERAMPILAN PEMULA  
-    """)
+    # Tambahkan keterangan Level Jabatan di atas heatmap
+    plt.text(-1.5, -1, 
+         "Level Jabatan:\n0.3=Pemula, 0.5=Terampil, 0.7=Mahir, 0.9=Penyelia,\n1.0=Ahli Pertama, 2.0=Ahli Muda, 3.0=Ahli Madya, 4.0=Ahli Utama", 
+         fontsize=10, 
+         verticalalignment='bottom', 
+         bbox=dict(facecolor='white', edgecolor='gray', boxstyle='round,pad=0.5'))
+
+    plt.title('Rata-rata Usia Berdasarkan Pendidikan Akhir dan Level Jabatan', fontsize=14)
+    plt.xlabel('Level Jabatan (Skor Numerik)')
+    plt.ylabel('Pendidikan Akhir')
+    plt.tight_layout()
+    st.pyplot(plt)
 
     with st.expander("📊 Heatmap Rata-rata Usia berdasarkan Rentang Usia dan OPD"):
         result_usia_opd = df.groupby(['OPD', 'Rentang Usia'], as_index=False)['USIA'].mean()
@@ -699,6 +691,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
