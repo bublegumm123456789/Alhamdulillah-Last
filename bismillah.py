@@ -670,7 +670,7 @@ elif page == "Hasil Visualisasi Magang":
             fmt=".1f",
             cmap="Oranges",
             linewidths=.5,
-            cbar_kws={"label": "Rentang Umur (Rata-rata)"}
+            cbar_kws={"label": " Warna Rentang Usia (Rata-rata)"}
         )
 
         plt.title('Rata-rata Usia Pegawai Berdasarkan Rentang Usia dan OPD', fontsize=16)
@@ -705,6 +705,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
