@@ -642,8 +642,8 @@ elif page == "Hasil Visualisasi Magang":
         result.rename(columns={'USIA': 'Rata_rata_Usia'}, inplace=True)
 
        plt.figure(figsize=(14, 7))
-        heatmap_data = result.pivot_table(index='PENDIDIKAN AKHIR', columns='Level Jabatan', values='Rata_rata_Usia')
-        sns.heatmap(heatmap_data, annot=True, fmt=".1f", cmap="YlGnBu", linewidths=.5, cbar_kws={"label": "Rata-rata Usia"})
+       heatmap_data = result.pivot_table(index='PENDIDIKAN AKHIR', columns='Level Jabatan', values='Rata_rata_Usia')
+       sns.heatmap(heatmap_data, annot=True, fmt=".1f", cmap="YlGnBu", linewidths=.5, cbar_kws={"label": "Rata-rata Usia"})
 
     # Tambahkan keterangan Level Jabatan di atas heatmap
     plt.text(-1.5, -1, 
