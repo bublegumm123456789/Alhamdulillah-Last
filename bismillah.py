@@ -567,7 +567,7 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     st.subheader("📌 Proyeksi Pensiun")
     
     # --- Slider: Tahun Pensiun ---
-    batas_pensiun = st.slider("🎯 Batas Maksimum Sisa Masa Kerja (tahun)", min_value=1, max_value=50, value=5)
+    batas_pensiun = st.slider("🎯 Batas Maksimum Sisa Masa Kerja (tahun)", min_value=1, max_value=11, value=5)
 
     # --- Filter pegawai yang akan pensiun dalam rentang tahun tsb
     df_pensiun = df[df["Sisa Masa Kerja"] <= batas_pensiun]
@@ -578,7 +578,7 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
 
     # --- Slider: Filter Usia ASN muda
-    usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=45, value=35)
+    usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=43, value=35)
     
     # ✅ Filter ASN muda yang berasal dari cluster Masih Lama Pensiun
     df_muda = df[(df["USIA"] < usia_batas) & (df["Kategori Cluster"] == "Masih Lama Pensiun")]
@@ -707,6 +707,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
