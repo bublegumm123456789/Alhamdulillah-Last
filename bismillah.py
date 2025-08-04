@@ -584,10 +584,10 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     df_muda = df[(df["USIA"] < usia_batas) & (df["Kategori Cluster"] == "Masih Lama Pensiun")]
 
     # --- Rekap ASN muda per jabatan dan OPD
-    muda_grouped = df_muda.groupby(["JABATAN","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Muda")
+    muda_grouped = df_muda.groupby(["JABATAN","KOMPETENSI","PENDIDIKAN AKHIR", "OPD"]).size().reset_index(name="Jumlah_Muda")
 
     # --- Gabungkan & analisis ketersediaan pengganti
-    df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["JABATAN","KOMPETENSI","PENDIDIKAN AKHIR"], how="left")
+    df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["JABATAN","KOMPETENSI","PENDIDIKAN AKHIR", "OPD"], how="left")
     df_gap["Jumlah_Muda"] = df_gap["Jumlah_Muda"].fillna(0).astype(int)
     df_gap["Tersedia_Pengganti"] = df_gap["Jumlah_Muda"].apply(lambda x: "Ya" if x > 0 else "Tidak")
 
@@ -707,6 +707,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
