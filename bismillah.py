@@ -579,10 +579,12 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
 
     # --- Slider: Filter Usia ASN muda
     usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=45, value=35)
-    df_muda = df[df["USIA"] < usia_batas]   
+    
+    # ✅ Filter ASN muda yang berasal dari cluster Masih Lama Pensiun
+    df_muda = df[(df["USIA"] < usia_batas) & (df["Kategori Cluster"] == "Masih Lama Pensiun")]
 
     # --- Rekap ASN muda per jabatan dan OPD
-    muda_grouped = df_muda.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR","Kategori Cluster"]).size().reset_index(name="Jumlah_Muda")
+    muda_grouped = df_muda.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Muda")
 
     # --- Gabungkan & analisis ketersediaan pengganti
     df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"], how="left")
@@ -596,7 +598,7 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     csv_gap = df_gap.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Unduh Rekap Proyeksi Pensiun", data=csv_gap, file_name="proyeksi_pensiun.csv", mime="text/csv")
 
-
+    
 # ------------------  ------------------
 elif page == "Hasil Visualisasi Magang":
     df = apply_kmeans(get_df())
@@ -705,6 +707,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
