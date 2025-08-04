@@ -565,31 +565,27 @@ elif page == "Hasil Cluster":          # ← pakai page
 elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     df = apply_kmeans(get_df())
     st.subheader("📌 Proyeksi Pensiun")
-    
-    # --- Slider: Tahun Pensiun ---
-    batas_pensiun = st.slider("🎯 Batas Maksimum Sisa Masa Kerja (tahun)", min_value=1, max_value=50, value=5)
 
-    # --- Filter pegawai yang akan pensiun dalam rentang tahun tsb
-    df_pensiun = df[df["Sisa Masa Kerja"] <= batas_pensiun]
-    st.markdown(f"#### 👴 Daftar Pegawai Kelompok Segera Pensiun ≤ {batas_pensiun} Tahun")
-    st.dataframe(df_pensiun[['ID PEGAWAI', 'JABATAN', 'KOMPETENSI','OPD', 'PENDIDIKAN AKHIR','USIA', 'Sisa Masa Kerja','Kategori Cluster']])
+    # --- Filter: Cluster Segera Pensiun
+    df_pensiun = df[df["Kategori Cluster"] == "Segera Pensiun"]
+    st.markdown("#### 👴 Daftar Pegawai Kelompok Segera Pensiun")
+    st.dataframe(df_pensiun[['ID PEGAWAI', 'JABATAN', 'KOMPETENSI', 'OPD', 'PENDIDIKAN AKHIR', 'USIA', 'Sisa Masa Kerja', 'Kategori Cluster']])
 
-    # --- Rekap jumlah pensiun berdasarkan jabatan dan OPD
-    pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
+    # --- Rekap pensiun berdasarkan variabel penting
+    pensiun_grouped = df_pensiun.groupby(["JABATAN", "OPD", "KOMPETENSI", "PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pensiun")
 
-    # --- Slider: Filter Usia ASN muda
-    usia_batas = st.slider("🧒 Batas Usia PNS Muda (default < 35)", min_value=20, max_value=45, value=35)
-    df_muda = df[df["USIA"] < usia_batas]   
+    # --- Filter: Cluster Masih Lama Pensiun (pengganti potensial)
+    df_pengganti = df[df["Kategori Cluster"] == "Masih Lama Pensiun"]
 
-    # --- Rekap ASN muda per jabatan dan OPD
-    muda_grouped = df_muda.groupby(["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Muda")
+    # --- Rekap calon pengganti
+    pengganti_grouped = df_pengganti.groupby(["JABATAN", "OPD", "KOMPETENSI", "PENDIDIKAN AKHIR"]).size().reset_index(name="Jumlah_Pengganti")
 
-    # --- Gabungkan & analisis ketersediaan pengganti
-    df_gap = pd.merge(pensiun_grouped, muda_grouped, on=["JABATAN", "OPD","KOMPETENSI","PENDIDIKAN AKHIR"], how="left")
-    df_gap["Jumlah_Muda"] = df_gap["Jumlah_Muda"].fillna(0).astype(int)
-    df_gap["Tersedia_Pengganti"] = df_gap["Jumlah_Muda"].apply(lambda x: "Ya" if x > 0 else "Tidak")
+    # --- Gabungkan keduanya untuk melihat kecocokan
+    df_gap = pd.merge(pensiun_grouped, pengganti_grouped, on=["JABATAN", "OPD", "KOMPETENSI", "PENDIDIKAN AKHIR"], how="left")
+    df_gap["Jumlah_Pengganti"] = df_gap["Jumlah_Pengganti"].fillna(0).astype(int)
+    df_gap["Tersedia_Pengganti"] = df_gap["Jumlah_Pengganti"].apply(lambda x: "Ya" if x > 0 else "Tidak")
 
-    st.markdown("#### 📊 Rekomendasi Pegawai")
+    st.markdown("#### 📊 Rekomendasi Pegawai Pengganti")
     st.dataframe(df_gap)
 
     # --- Tombol unduh
@@ -705,6 +701,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
