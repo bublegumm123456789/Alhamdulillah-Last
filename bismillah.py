@@ -572,6 +572,8 @@ elif page == "Proyeksi Pensiun & Rekomendasi Pegawai":
     # --- Filter pegawai yang akan pensiun dalam rentang tahun tsb
     df_pensiun = df[df["Sisa Masa Kerja"] <= batas_pensiun]
     st.markdown(f"#### 👴 Daftar Pegawai Kelompok Segera Pensiun ≤ {batas_pensiun} Tahun")
+    total_pensiun = len(df_pensiun)
+    st.markdown(f"📋 **Total Pegawai yang Akan Pensiun ≤ {batas_pensiun} Tahun: {total_pensiun} orang**")
     st.dataframe(df_pensiun[['ID PEGAWAI', 'JABATAN', 'KOMPETENSI','OPD', 'PENDIDIKAN AKHIR','USIA', 'Sisa Masa Kerja','Kategori Cluster']])
 
     # --- Rekap jumlah pensiun berdasarkan jabatan dan OPD
@@ -707,6 +709,7 @@ elif page == "Hasil Visualisasi Magang":
     # csv_talent = df_talent_muda.to_csv(index=False).encode('utf-8')
     # st.download_button("📥 Unduh Talent Pool", data=csv_talent, file_name="talent_pool_asn.csv", mime="text/csv")
             
+
 
 
 
